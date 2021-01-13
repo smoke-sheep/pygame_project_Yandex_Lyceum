@@ -1,17 +1,34 @@
 import os
 import pygame
+from pygame.mixer import music as sounds_player
+from pygame.mixer import Sound
 from pygame.locals import *
 
 CURRENT_DIR = os.path.dirname(__file__)
+SOUND_PATH = os.path.join(CURRENT_DIR, '_sounds')
+MUSIC_PATH = os.path.join(CURRENT_DIR, '_music')
 TEXTURES_PATH = os.path.join(CURRENT_DIR, '_textures')
+PLAYER_SKINS = os.path.join(CURRENT_DIR, '_textures')
 LEVELS_PATH = os.path.join(CURRENT_DIR, '_levels')
 
 WALL_SYMBOL = "("
 FONE_SYMBOL = "["
 
 FPS = 60
-WIN_SIZE = (1000, 1000)
+def window_init():
+    from tkinter import Tk
+    temp = Tk()
+    MONITOR_SIZE = temp.winfo_screenwidth(), temp.winfo_screenheight()
+    temp.destroy()
+    del temp
+    return MONITOR_SIZE
+
+
+WIN_SIZE = window_init()
+#WIN_SIZE = (1000, 1000)
 CELL_SIZE = 50
+
+SOUND_LEVEL = 0.2
 
 BOSS_INFO = 0   # x,y,hp
 PLAYER_SPRITE_INFO = 1

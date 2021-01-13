@@ -12,6 +12,11 @@ class Object(pg.sprite.Sprite):
     group = None
     img = os.path.join(TEXTURES_PATH, 'creature.png')
 
+    move_straight = None
+    move_left = None
+    move_right = None
+    move_back = None
+
     def __init__(self, x, y):
         super().__init__(Object.group)
         self.image = load_image(Object.img, -1)
@@ -76,7 +81,7 @@ class Object(pg.sprite.Sprite):
             speed_y = self.speed
         self.rect.y += speed_y
 
-        if pg.sprite.spritecollide(self, data.walls, False):
+        if pg.sprite.spritecollide(self, data.walls, False) or pg.sprite.spritecollide(self, data.mobs, False):
             #print("YES")
             self.rect.x -= speed_x
             self.rect.y -= speed_y

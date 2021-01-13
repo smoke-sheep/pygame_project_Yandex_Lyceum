@@ -5,8 +5,7 @@ from mobs import Boss, base_mob_attack
 from menuModule import Game_over
 
 
-
-
+"""
 def window_init():
     # получаем размеры монитора
     # в pygame неудобно получать размер монитора, поэтому воспользуемся
@@ -26,6 +25,7 @@ def window_init():
     screen = pygame.display.set_mode(MONITOR_SIZE)
 
     return screen
+"""
 
 
 class Game:
@@ -61,6 +61,15 @@ class Game:
 
         self.camera = Camera(camera_configure, 10000, 1000)
 
+        self.load_music()
+        self.load_level()
+
+    def load_music(self):
+        sounds_player.load(os.path.join(MUSIC_PATH, 'Slipknot Psychosocial.wav'))
+        sounds_player.set_volume(SOUND_LEVEL)
+        sounds_player.play(loops=-1)
+
+    def load_level(self):
         y = 0
 
         file_data = open(os.path.join(LEVELS_PATH, '0_level.txt'), mode="r").read().split("\n")

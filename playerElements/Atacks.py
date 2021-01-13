@@ -4,7 +4,6 @@ from basicDetails import *
 
 class atack(pygame.sprite.Sprite):
     group = None
-    img = os.path.join(TEXTURES_PATH, 'atack.png')
 
     def __init__(self, x, y):
         super().__init__(self.__class__.group)
@@ -22,6 +21,7 @@ class base_player_attack(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__(self.__class__.group)
+        Sound(self.__class__.sound).play()
 
     def __str__(self):
         return f"x={self.rect.x},y={self.rect.y}"
@@ -32,6 +32,7 @@ class base_player_attack(pygame.sprite.Sprite):
 
 class basic_bullet(base_player_attack):
     img = os.path.join(TEXTURES_PATH, 'atack.png')
+    sound = os.path.join(SOUND_PATH, 'basic_bullet_sound.wav')
 
     def __init__(self, x, y):
         super().__init__()
@@ -48,6 +49,7 @@ class basic_bullet(base_player_attack):
 
 class wizard_road_sphere(base_player_attack):
     img = os.path.join(TEXTURES_PATH, 'wizard_road_sphere.png')
+    sound = os.path.join(SOUND_PATH, 'wizard_road_sphere_sound.wav')
 
     def __init__(self, x, y):
         super().__init__()

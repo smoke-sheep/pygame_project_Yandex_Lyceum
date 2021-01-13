@@ -80,6 +80,7 @@ class base_mob_attack(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, 0, 0)
         self.speed_x = 0
         self.speed_y = 0
+        Sound(self.__class__.sound).play()
 
     def draw(self, fill, camera):
         fill.blit(self.image, camera)
@@ -99,6 +100,7 @@ class base_mob_attack(pygame.sprite.Sprite):
 
 class fire_ball(base_mob_attack):
     img = os.path.join(TEXTURES_PATH, 'fire_ball.png')
+    sound = os.path.join(SOUND_PATH, 'snow_ball_sound.wav')
     last_survey = 0
     cooldown = 1000
     attack_speed = 10
@@ -119,6 +121,7 @@ class fire_ball(base_mob_attack):
 
 class snow_ball(base_mob_attack):
     img = os.path.join(TEXTURES_PATH, 'snow_ball.png')
+    sound = os.path.join(SOUND_PATH, 'snow_ball_sound.wav')
     last_survey = 0
     cooldown = 10000
     attack_speed = 5
