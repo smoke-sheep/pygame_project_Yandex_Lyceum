@@ -24,8 +24,8 @@ def window_init():
     return MONITOR_SIZE
 
 
-WIN_SIZE = window_init()
-#WIN_SIZE = (1000, 1000)
+#WIN_SIZE = window_init()
+WIN_SIZE = (1000, 1000)
 CELL_SIZE = 50
 
 SOUND_LEVEL = 0.2

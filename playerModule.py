@@ -6,6 +6,7 @@ from basicDetails import *
 from playerElements.CameraModule import camera_configure, Camera
 from playerElements.Atacks import base_player_attack
 from playerElements.weapoints import baseWeapon, blackGun, wizardRoad
+from informBarModule import helthPointBar
 
 
 class Object(pg.sprite.Sprite):
@@ -33,6 +34,8 @@ class Object(pg.sprite.Sprite):
         print(x, y)
         self.weapons = [blackGun(x, y), wizardRoad(x, y)]
         self.active_weapon = 0
+
+        self.health_point_bar = helthPointBar(self.rect.width, self.health_point)
         # Object.group.add(self)
         # self.add(Object.group)
 
@@ -96,13 +99,21 @@ class Object(pg.sprite.Sprite):
         y = self.rect.y + self.weapoint_pos[1]
         self.weapons[self.active_weapon].update(x, y)
 
+        if not self.is_dead():
+            print(f"{self.rect.x} {self.rect.y}")
+            self.health_point_bar.update(self.rect.x, self.rect.y, self.health_point)
+
         return self.processing_events()
 
     def draw(self, fill, camera):
         fill.blit(self.image, camera)
         self.weapons[self.active_weapon].draw(fill, camera)
+        self.health_point_bar.draw(fill, camera)
 
     def is_dead(self):
         if self.health_point <= 0:
             return True
         return False
+
+    """def draw_bars(self, surface):
+        self.health_point_bar.draw(surface)"""
