@@ -33,5 +33,20 @@ class wallBlock(pygame.sprite.Sprite):
         pygame.sprite.spritecollide(self, data.mobs_attack, True)
 
 
-class foneBlock(baseBlock):
-    pass
+class foneBlock(pygame.sprite.Sprite):
+    group = None
+    base_img = os.path.join(TEXTURES_PATH, 'creature.png')
+
+    def __init__(self, x, y):
+        super().__init__(self.__class__.group)
+        self.image = load_image(self.__class__.base_img, (255, 255, 255))
+        self.rect = self.image.get_rect()
+        self.rect = self.rect.move(x, y)
+
+    def get_cord(self):
+        return self.rect.x, self.rect.y
+
+    def update(self, data):
+        #pygame.sprite.spritecollide(self, data.players_attack, True)
+        #pygame.sprite.spritecollide(self, data.mobs_attack, True)
+        pass

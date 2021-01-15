@@ -17,6 +17,7 @@ def set_difficulty(value, difficulty):
     pass
 
 def start_the_game():
+    print(player[str(active_index)])
     Game(player[str(active_index)]).run()
 
 def onchange(current_text, index):

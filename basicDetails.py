@@ -7,8 +7,8 @@ from pygame.locals import *
 CURRENT_DIR = os.path.dirname(__file__)
 SOUND_PATH = os.path.join(CURRENT_DIR, '_sounds')
 MUSIC_PATH = os.path.join(CURRENT_DIR, '_music')
-TEXTURES_PATH = os.path.join(CURRENT_DIR, '_textures')
-PLAYER_SKINS = os.path.join(CURRENT_DIR, '_textures')
+TEXTURES_PATH = os.path.join(CURRENT_DIR, 'Sprites')
+PLAYER_SKINS = os.path.join(TEXTURES_PATH, 'Player')
 LEVELS_PATH = os.path.join(CURRENT_DIR, '_levels')
 
 WALL_SYMBOL = "("

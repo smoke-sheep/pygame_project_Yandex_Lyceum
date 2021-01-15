@@ -15,7 +15,7 @@ def check_cooldown(data):
 
 class Boss(pygame.sprite.Sprite):
     group = None
-    img = os.path.join(TEXTURES_PATH, 'BOSS.png')
+    img = os.path.join(TEXTURES_PATH, 'BOSS\\BOSS.png')
 
     def __init__(self, x, y, hp):
         super().__init__(self.__class__.group)
@@ -115,8 +115,6 @@ class fire_ball(base_mob_attack):
         self.speed_y = speed_y
         self.damage = 10
         print(f"new {self.__class__.__name__}: {x}, {y}; create time: {pygame.time.get_ticks()}")
-
-
 
 
 class snow_ball(base_mob_attack):

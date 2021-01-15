@@ -11,7 +11,7 @@ from informBarModule import helthPointBar
 
 class Object(pg.sprite.Sprite):
     group = None
-    img = os.path.join(TEXTURES_PATH, 'creature.png')
+    #img = os.path.join(TEXTURES_PATH, 'creature.png')
 
     move_straight = None
     move_left = None
@@ -20,7 +20,7 @@ class Object(pg.sprite.Sprite):
 
     def __init__(self, x, y):
         super().__init__(Object.group)
-        self.image = load_image(Object.img, -1)
+        self.image = load_image(Object.move_straight, -1)
         self.rect = self.image.get_rect()
         self.rect = self.rect.move(x, y)
         self.speed = 10
@@ -68,21 +68,25 @@ class Object(pg.sprite.Sprite):
         up = keys[K_w] or keys[K_UP]
         down = keys[K_s] or keys[K_DOWN]
 
-        if left == right:
-            speed_x = 0
-        elif left:
-            speed_x = -self.speed
-        else:
-            speed_x = self.speed
-        self.rect.x += speed_x
-
         if up == down:
             speed_y = 0
         elif up:
             speed_y = -self.speed
+            self.image = load_image(Object.move_back, -1)
         else:
             speed_y = self.speed
+            self.image = load_image(Object.move_straight, -1)
         self.rect.y += speed_y
+
+        if left == right:
+            speed_x = 0
+        elif left:
+            speed_x = -self.speed
+            self.image = load_image(Object.move_left, -1)
+        else:
+            speed_x = self.speed
+            self.image = load_image(Object.move_right, -1)
+        self.rect.x += speed_x
 
         if pg.sprite.spritecollide(self, data.walls, False) or pg.sprite.spritecollide(self, data.mobs, False):
             #print("YES")
@@ -114,6 +118,3 @@ class Object(pg.sprite.Sprite):
         if self.health_point <= 0:
             return True
         return False
-
-    """def draw_bars(self, surface):
-        self.health_point_bar.draw(surface)"""

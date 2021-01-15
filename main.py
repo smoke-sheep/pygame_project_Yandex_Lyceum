@@ -1,5 +1,5 @@
 from basicDetails import *
-from gamingSpace import wallBlock, baseBlock
+from gamingSpace import wallBlock, baseBlock, foneBlock
 from playerModule import Object, Camera, camera_configure, base_player_attack, baseWeapon
 from mobs import Boss, base_mob_attack
 from menuModule import Game_over
@@ -29,7 +29,7 @@ def window_init():
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, player_sprites):
         pygame.init()
         self.running = True
         self.end = GAME_IN_PROCESS
@@ -46,6 +46,7 @@ class Game:
 
         self.fone = pygame.sprite.Group()
         baseBlock.group = self.fone
+        foneBlock.group = self.fone
 
         self.mobs = pygame.sprite.Group()
         Boss.group = self.mobs
@@ -61,6 +62,12 @@ class Game:
 
         self.camera = Camera(camera_configure, 10000, 1000)
 
+        player_spr = os.path.join(PLAYER_SKINS, player_sprites)
+        Object.move_straight = os.path.join(player_spr, "forward.png")
+        Object.move_back = os.path.join(player_spr, "back.png")
+        Object.move_left = os.path.join(player_spr, "left.png")
+        Object.move_right = os.path.join(player_spr, "right.png")
+
         self.load_music()
         self.load_level()
 
@@ -73,10 +80,11 @@ class Game:
         y = 0
 
         file_data = open(os.path.join(LEVELS_PATH, '0_level.txt'), mode="r").read().split("\n")
-        texture_path = os.path.join(TEXTURES_PATH, '0_level')
+        texture_path = os.path.join(TEXTURES_PATH, 'Map')
 
         # рисование фона и стен
-        wallBlock.base_img = os.path.join(texture_path, "wall_1.png")
+        wallBlock.base_img = os.path.join(texture_path, "BlockWall.png")
+        foneBlock.base_img = os.path.join(texture_path, "BlockDown1.png")
         for string in file_data[2:]:
             x = 0
             for symbol in range(len(string)):
@@ -84,7 +92,7 @@ class Game:
                     if string[symbol - 1] == WALL_SYMBOL:
                         wallBlock(x, y)
                     elif string[symbol - 1] == FONE_SYMBOL:
-                        baseBlock(x, y)
+                        foneBlock(x, y)
                     x += CELL_SIZE
             y += CELL_SIZE
 
@@ -143,7 +151,8 @@ class Game:
 
             for e in self.walls:
                 self.window.blit(e.image, self.camera.apply(e))
-            # self.walls.draw(self.window)
+            for e in self.fone:
+                self.window.blit(e.image, self.camera.apply(e))
 
             for e in self.group:
                 e.draw(self.window, self.camera.apply(e))
@@ -151,7 +160,6 @@ class Game:
 
             for e in self.mobs:
                 self.window.blit(e.image, self.camera.apply(e))
-            #self.group.draw(self.window)
 
             for e in self.players_attack:
                 self.window.blit(e.image, self.camera.apply(e))
