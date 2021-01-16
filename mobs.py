@@ -4,6 +4,7 @@ import os
 from random import choice, randint
 
 from basicDetails import *
+from informBarModule import helthPointBar
 
 
 def check_cooldown(data):
@@ -24,6 +25,7 @@ class Boss(pygame.sprite.Sprite):
         self.rect = self.rect.move(x, y)
 
         self.health_point = hp
+        self.health_point_bar = helthPointBar(self.rect.width, self.health_point)
         self.attack_list = [fire_ball, snow_ball]
 
     def create_attack(self, player):
@@ -62,9 +64,16 @@ class Boss(pygame.sprite.Sprite):
         if bool(data):
             for attack in damage:
                 self.health_point -= attack.get_damage()
-                print(self.health_point)
+                #print(self.health_point)
+
+        if not self.is_dead():
+            self.health_point_bar.update(self.rect.x, self.rect.y, self.health_point)
 
         return self.create_attack(data.player)
+
+    def draw(self, fill, camera):
+        fill.blit(self.image, camera)
+        self.health_point_bar.draw(fill, camera)
 
     def is_dead(self):
         if self.health_point <= 0:
@@ -114,7 +123,7 @@ class fire_ball(base_mob_attack):
         self.speed_x = speed_x
         self.speed_y = speed_y
         self.damage = 10
-        print(f"new {self.__class__.__name__}: {x}, {y}; create time: {pygame.time.get_ticks()}")
+        #print(f"new {self.__class__.__name__}: {x}, {y}; create time: {pygame.time.get_ticks()}")
 
 
 class snow_ball(base_mob_attack):
@@ -133,4 +142,4 @@ class snow_ball(base_mob_attack):
         self.speed_x = speed_x
         self.speed_y = speed_y
         self.damage = 200
-        print(f"new {self.__class__.__name__}: {x}, {y}; create time: {pygame.time.get_ticks()}")
+        # print(f"new {self.__class__.__name__}: {x}, {y}; create time: {pygame.time.get_ticks()}")

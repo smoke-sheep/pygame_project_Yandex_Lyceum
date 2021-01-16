@@ -97,22 +97,22 @@ class Object(pg.sprite.Sprite):
         if bool(damage):
             for attack in damage:
                 self.health_point -= attack.get_damage()
-                print(f"hp: {self.health_point}")
+                #print(f"hp: {self.health_point}")
 
         x = self.rect.x + self.weapoint_pos[0]
         y = self.rect.y + self.weapoint_pos[1]
         self.weapons[self.active_weapon].update(x, y)
 
         if not self.is_dead():
-            print(f"{self.rect.x} {self.rect.y}")
+            #print(f"{self.rect.x} {self.rect.y}")
             self.health_point_bar.update(self.rect.x, self.rect.y, self.health_point)
 
         return self.processing_events()
 
     def draw(self, fill, camera):
         fill.blit(self.image, camera)
-        self.weapons[self.active_weapon].draw(fill, camera)
         self.health_point_bar.draw(fill, camera)
+        self.weapons[self.active_weapon].draw(fill, camera)
 
     def is_dead(self):
         if self.health_point <= 0:

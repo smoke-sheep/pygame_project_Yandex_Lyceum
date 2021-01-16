@@ -156,10 +156,9 @@ class Game:
 
             for e in self.group:
                 e.draw(self.window, self.camera.apply(e))
-                # self.window.blit(e.image, self.camera.apply(e))
 
             for e in self.mobs:
-                self.window.blit(e.image, self.camera.apply(e))
+                e.draw(self.window, self.camera.apply(e))
 
             for e in self.players_attack:
                 self.window.blit(e.image, self.camera.apply(e))
@@ -167,7 +166,6 @@ class Game:
             for e in self.mobs_attack:
                 self.window.blit(e.image, self.camera.apply(e))
 
-            #self.player.draw_bars(self.window)
         elif self.end == GAME_OVER:
             self.window.fill((0, 0, 0))
             # self.game_over.draw(self.window)

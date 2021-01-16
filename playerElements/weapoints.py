@@ -20,7 +20,6 @@ class baseWeapon(pygame.sprite.Sprite):
         return False
 
 
-
 class blackGun(baseWeapon):
     img = os.path.join(TEXTURES_PATH, 'black_gun.png')
 
@@ -58,6 +57,7 @@ class wizardRoad(baseWeapon):
         self.cooldown = 1000
 
     def update(self, x, y):
+        print("move:", x, y)
         self.rect.x = x
         self.rect.y = y
 
