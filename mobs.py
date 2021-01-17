@@ -72,7 +72,7 @@ class Boss(pygame.sprite.Sprite):
         return self.create_attack(data.player)
 
     def draw(self, fill, camera):
-        fill.blit(self.image, camera)
+        fill.blit(self.image, camera.apply(self))
         self.health_point_bar.draw(fill, camera)
 
     def is_dead(self):

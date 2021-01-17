@@ -11,7 +11,7 @@ class baseWeapon(pygame.sprite.Sprite):
         self.last_survey = 0
 
     def draw(self, fill, camera):
-        fill.blit(self.image, camera)
+        fill.blit(self.image, camera.apply(self))
 
     def check_cooldown(self):
         if pygame.time.get_ticks() - self.last_survey >= self.cooldown:

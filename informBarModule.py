@@ -20,10 +20,6 @@ class helthPointBar():
 
     def draw(self, surface, camera):
         print(f"{self.rect.x} {self.rect.y}")
-        """pygame.draw.rect(surface, (0, 0, 0), self.rect, 1)
-        pygame.draw.rect(surface, (255, 0, 0), (self.rect.x + 1, self.rect.y - 1,
-                                                transform_value(self.hp, 0, self.max_hp, 0, self.rect.width - 1),
-                                                self.rect.height - 1))"""
 
         fill = pygame.Surface((self.rect.width, self.rect.height))
         fill.fill((0, 0, 0))
@@ -31,4 +27,12 @@ class helthPointBar():
                                                 transform_value(self.hp, 0, self.max_hp, 0, self.rect.width - 2),
                                                 self.rect.height - 2))
 
-        surface.blit(fill, camera)
+        class operate:
+            def __init__(self, fill, x, y):
+                self.image = fill.convert()
+                self.rect = fill.get_rect()
+                self.rect = self.rect.move(x, y)
+
+        operate = operate(fill, self.rect.x, self.rect.y)
+
+        surface.blit(fill, camera.apply(operate))

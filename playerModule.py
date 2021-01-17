@@ -28,7 +28,7 @@ class Object(pg.sprite.Sprite):
 
         self.events = None
 
-        self.weapoint_pos = (10, 10)
+        self.weapoint_pos = (30, 30)
         x = self.rect.x + self.weapoint_pos[0]
         y = self.rect.y + self.weapoint_pos[1]
         print(x, y)
@@ -110,7 +110,7 @@ class Object(pg.sprite.Sprite):
         return self.processing_events()
 
     def draw(self, fill, camera):
-        fill.blit(self.image, camera)
+        fill.blit(self.image, camera.apply(self))
         self.health_point_bar.draw(fill, camera)
         self.weapons[self.active_weapon].draw(fill, camera)
 

@@ -5,27 +5,9 @@ from mobs import Boss, base_mob_attack
 from menuModule import Game_over
 
 
-"""
-def window_init():
-    # получаем размеры монитора
-    # в pygame неудобно получать размер монитора, поэтому воспользуемся
-    # другой библиотекой
-    from tkinter import Tk
-    from os import environ
-    temp = Tk()
-    MONITOR_SIZE = temp.winfo_screenwidth(), temp.winfo_screenheight()
-    temp.destroy()
-    del temp
-
-    # помещаем окно в верхний правый угол экрана
-    # это нужно сделать до того, как вы создадите окно
-    #screen_coords = (MONITOR_SIZE[0] - WIN_SIZE.w - 50, 50)
-    #environ['SDL_VIDEO_WINDOW_POS'] = f"{screen_coords[0]}, {screen_coords[1]}"
-
-    screen = pygame.display.set_mode(MONITOR_SIZE)
-
-    return screen
-"""
+def draw_group(group, fill, camera):
+    for element in group:
+        fill.blit(element.image, camera.apply(element))
 
 
 class Game:
@@ -144,27 +126,16 @@ class Game:
         if self.end == GAME_IN_PROCESS:
             self.window.fill((0, 0, 100))
 
-            #self.walls.draw(self.window)
-            #self.fone.draw(self.window)
-
             self.camera.update(self.player)
 
-            for e in self.walls:
-                self.window.blit(e.image, self.camera.apply(e))
-            for e in self.fone:
-                self.window.blit(e.image, self.camera.apply(e))
+            draw_group(self.walls, self.window, self.camera)
+            draw_group(self.fone, self.window, self.camera)
 
-            for e in self.group:
-                e.draw(self.window, self.camera.apply(e))
+            self.player.draw(self.window, self.camera)
+            self.boss.draw(self.window, self.camera)
 
-            for e in self.mobs:
-                e.draw(self.window, self.camera.apply(e))
-
-            for e in self.players_attack:
-                self.window.blit(e.image, self.camera.apply(e))
-
-            for e in self.mobs_attack:
-                self.window.blit(e.image, self.camera.apply(e))
+            draw_group(self.players_attack, self.window, self.camera)
+            draw_group(self.mobs_attack, self.window, self.camera)
 
         elif self.end == GAME_OVER:
             self.window.fill((0, 0, 0))
@@ -172,7 +143,6 @@ class Game:
             self.camera.update(self.player)
             for e in self.game_over:
                 self.window.blit(e.image, self.camera.apply(e))
-            #self.window.blit(self.game_over.image, self.game_over.rect)
 
         pygame.display.flip()
 
