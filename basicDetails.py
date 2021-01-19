@@ -15,6 +15,9 @@ WALL_SYMBOL = "("
 FONE_SYMBOL = "["
 
 FPS = 60
+
+
+# получение размеров экрана
 def window_init():
     from tkinter import Tk
     temp = Tk()
@@ -28,7 +31,7 @@ def window_init():
 WIN_SIZE = (1000, 1000)
 CELL_SIZE = 50
 
-SOUND_LEVEL = 0.2
+SOUND_LEVEL = 0.2   # громкость звука
 
 BOSS_INFO = 0   # x,y,hp
 PLAYER_SPRITE_INFO = 1
@@ -38,6 +41,7 @@ WIN = False
 GAME_IN_PROCESS = None
 
 
+# функция загрузки изображения
 def load_image(img, colorkey=None):
     try:
         image = pygame.image.load(img)

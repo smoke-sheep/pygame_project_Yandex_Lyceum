@@ -1,3 +1,5 @@
+# это запускать!
+
 import pygame
 import pygame_menu
 from main import Game
